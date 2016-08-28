@@ -1,0 +1,24 @@
+{
+  "name": "codetest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n-9891-b/Code-Test.git"
+  },
+  "author": "Nate Blain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/n-9891-b/Code-Test/issues"
+  },
+  "homepage": "https://github.com/n-9891-b/Code-Test#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "fast-html-parser": "^1.0.1",
+    "jquery": "^3.1.0"
+  }
+}
