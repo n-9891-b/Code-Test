@@ -1,0 +1,21 @@
+{
+  "name": "codetest",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Nate Blain"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/n-9891-b/Code-Test",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.0"
+  }
+}
