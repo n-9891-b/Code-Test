@@ -27,7 +27,7 @@ module.exports = soccer = {
             goalDifferenceByTeam[teamEntry[1]] = Math.abs(parseInt(teamEntry[6]) - parseInt(teamEntry[8]));
           }
           for (team in goalDifferenceByTeam) {
-            if (goalDifferenceByTeam[team] === 0) return [team, goalDifferenceByTeam[team]];
+            if (goalDifferenceByTeam[team] === 0) return {team, goalDifference: goalDifferenceByTeam[team]};
             if (!lowest || goalDifferenceByTeam[team] < lowest) {
               lowest = goalDifferenceByTeam[team];
               lowestGoalDiffTeam = team;
