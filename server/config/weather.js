@@ -24,20 +24,19 @@ module.exports = weather = {
           day;
 
           for (i = 6; i < weatherDataArray.length-2; i++) {
-            let day = weatherDataArray[i];
-            daysSpread[day[0]] = [(parseInt(day[1]) - parseInt(day[2])), day[1], day[2]];
+            let dayEntry = weatherDataArray[i];
+            daysSpread[dayEntry[0]] = (parseInt(dayEntry[1]) - parseInt(dayEntry[2]));
           }
           for (day in daysSpread) {
-            if (daysSpread[day][0] === 0) return [day, daysSpread[day][1], daysSpread[day][2]];
-            if (!lowest || daysSpread[day][0] < lowest) {
-              lowest = daysSpread[day][0];
+            if (daysSpread[day] === 0) return {day, tempSpread: 0};
+            if (!lowest || daysSpread[day] < lowest) {
+              lowest = daysSpread[day];
               lowestDay = day;
             }
           }
           return {
             day: lowestDay,
-            high: daysSpread[lowestDay][1],
-            low: daysSpread[lowestDay][2]
+            tempSpread: lowest,
           };
         };
         res.send(tempSpread());
