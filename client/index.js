@@ -6,7 +6,7 @@ $(document).ready(function() {
           url: '/weather',
           dataType: 'json',
           success: function(data) {
-             var html = '<p class="result">Day: ' + data.day + '</p><p class="result">High: ' + data.high + '</p><p class="result">Low: ' + data.low + '</p>';
+             var html = '<p class="result">Day: ' + data.day + '</p><p class="result">Temperature Spread: ' + data.tempSpread + '&deg</p>';
              $('.temp').append(html);
           }
       });
