@@ -1,62 +1,46 @@
-var fs = require('fs');
-var helpers = require('./dataHelpers');
+const fs = require('fs');
+const helpers = require('./dataHelpers');
 
 module.exports = soccer = {
 
-  provideSoccerData: function(req, res) {
-    fs.readFile(__dirname + '/soccer.txt', 'utf8', function(err, data){
+  provideSoccerData: (req, res) => {
+    fs.readFile(__dirname + '/data/soccer.txt', 'utf8', (err, data) => {
       if (err) {
         console.log(err);
       } else {
-        var dataArr = data.split('\n');
-        var temp = dataArr.map(function(el){
+
+        const SoccerDataArray = data.split('\n').map((el) => {
           return el.split('');
+        }).map((el) => {
+          return helpers.parseDataPointArray(el);
         });
 
-        var final = temp.map(function(el) {
-          return soccer.getDataPointArray(el);
-        });
+        const goalDifference = () => {
+          let goalDifferenceByTeam = {},
+          lowest,
+          lowestGoalDiffTeam,
+          i,
+          team;
 
-        console.log(final);
-        var goalDifference = function() {
-          var goalDifference = {};
-          var lowest;
-          var team;
-          for (var i = 4; i < final.length-2; i++) {
-            goalDifference[final[i][1]] = Math.abs(parseInt(final[i][6]) - parseInt(final[i][8]));
+          for (i = 4; i < SoccerDataArray.length-2; i++) {
+            let teamEntry = SoccerDataArray[i];
+            goalDifferenceByTeam[teamEntry[1]] = Math.abs(parseInt(teamEntry[6]) - parseInt(teamEntry[8]));
           }
-          for (var key in goalDifference) {
-            if (goalDifference[key] === 0) return [key, goalDifference[key]];
-            if (!lowest || goalDifference[key] < lowest) {
-              lowest = goalDifference[key];
-              team = key;
+          for (team in goalDifferenceByTeam) {
+            if (goalDifferenceByTeam[team] === 0) return [team, goalDifferenceByTeam[team]];
+            if (!lowest || goalDifferenceByTeam[team] < lowest) {
+              lowest = goalDifferenceByTeam[team];
+              lowestGoalDiffTeam = team;
             }
           }
           return {
-            team: team,
+            team: lowestGoalDiffTeam,
             goalDifference: lowest
           };
         };
         res.send(goalDifference());
       }
     });
-  },
-
-  getDataPointArray: function(array) {
-    var result = [];
-    var tmp = '';
-    for (var i = 0; i < array.length; i++) {
-
-      if (array[i] !== ' ' && array[i] !== '') {
-        tmp += array[i];
-      } else if (!!tmp) {
-        result.push(tmp);
-        tmp = '';
-      } else {
-        tmp = '';
-      }
-    }
-    return result;
   }
 
 }

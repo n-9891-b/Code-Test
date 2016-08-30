@@ -1,7 +1,7 @@
-var weather = require('./weather');
-var soccer = require('./soccer');
+const weather = require('./weather');
+const soccer = require('./soccer');
 
-module.exports = function(app, express) {
+module.exports = (app, express) => {
 
   app.use(express.static(__dirname + '/../../client'));
 

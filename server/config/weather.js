@@ -1,44 +1,37 @@
-var fs = require('fs');
-var helpers = require('./dataHelpers');
-// var Promise = require('bluebird');
+const fs = require('fs');
+const helpers = require('./dataHelpers');
 
 module.exports = weather = {
 
-  provideWeatherData: function(req, res) {
-        // var final = new Promise(function(resolve, reject) {
-        //   resolve(helpers.readFileData('/w_data.txt'));
-        // });
-        // var d;
-        // var final = Promise.promisify(helpers.readFileData);
+  provideWeatherData: (req, res) => {
 
-        // final('/w_data.txt').then(function(data){
-        //   console.log(data);
-        // });
-    fs.readFile(__dirname + '/w_data.txt', 'utf8', function(err, data){
+    fs.readFile(__dirname + '/data/w_data.txt', 'utf8', (err, data) => {
       if (err) {
         console.log(err);
       } else {
-        var dataArr = data.split('\n');
-        var temp = dataArr.map(function(el){
+
+        const weatherDataArray = data.split('\n').map((el) => {
           return el.split('');
+        }).map((el) => {
+          return helpers.parseDataPointArray(el);
         });
 
-        var final = temp.map(function(el) {
-          return weather.getDataPointArray(el);
-        });
+        const tempSpread = () => {
+          let daysSpread = {},
+          lowest,
+          lowestDay,
+          i,
+          day;
 
-        var tempSpread = function() {
-          var daysSpread = {};
-          var lowest;
-          var lowestDay;
-          for (var i = 6; i < final.length-2; i++) {
-            daysSpread[final[i][0]] = [(parseInt(final[i][1]) - parseInt(final[i][2])), final[i][1], final[i][2]];
+          for (i = 6; i < weatherDataArray.length-2; i++) {
+            let day = weatherDataArray[i];
+            daysSpread[day[0]] = [(parseInt(day[1]) - parseInt(day[2])), day[1], day[2]];
           }
-          for (var key in daysSpread) {
-            if (daysSpread[key][0] === 0) return [key, daysSpread[key][1], daysSpread[key][2]];
-            if (!lowest || daysSpread[key][0] < lowest) {
-              lowest = daysSpread[key][0];
-              lowestDay = key;
+          for (day in daysSpread) {
+            if (daysSpread[day][0] === 0) return [day, daysSpread[day][1], daysSpread[day][2]];
+            if (!lowest || daysSpread[day][0] < lowest) {
+              lowest = daysSpread[day][0];
+              lowestDay = day;
             }
           }
           return {
@@ -50,23 +43,6 @@ module.exports = weather = {
         res.send(tempSpread());
       }
     });
-  },
-
-  getDataPointArray: function(array) {
-    var result = [];
-    var tmp = '';
-    for (var i = 0; i < array.length; i++) {
-
-      if (array[i] !== ' ' && array[i] !== '') {
-        tmp += array[i];
-      } else if (!!tmp) {
-        result.push(tmp);
-        tmp = '';
-      } else {
-        tmp = '';
-      }
-    }
-    return result;
   }
 
 }
