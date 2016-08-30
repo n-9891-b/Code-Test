@@ -12,6 +12,8 @@ From within the root directory:
 ```
 npm start
 ```
+Then:
+Navigate to localhost:8000
 
 ### Author
 Nate Blain
