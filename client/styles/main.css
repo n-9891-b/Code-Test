@@ -1,0 +1,54 @@
+#table {
+  margin: 20px 20px;
+}
+
+.head {
+    -webkit-animation: color-change 500ms infinite;
+    -moz-animation: color-change 500ms infinite;
+    -o-animation: color-change 500ms infinite;
+    -ms-animation: color-change 500ms infinite;
+    animation: color-change 500ms infinite;
+}
+
+.header {
+  text-align: center;
+  font-style: italic;
+}
+
+.temp, .soccer {
+  margin: 0 auto;
+  width: 400px;
+  height: 200px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.result {
+  font-weight: bold;
+}
+
+@-webkit-keyframes color-change {
+    0% { color: red; }
+    50% { color: blue; }
+    100% { color: red; }
+}
+@-moz-keyframes color-change {
+    0% { color: red; }
+    50% { color: blue; }
+    100% { color: red; }
+}
+@-ms-keyframes color-change {
+    0% { color: red; }
+    50% { color: blue; }
+    100% { color: red; }
+}
+@-o-keyframes color-change {
+    0% { color: red; }
+    50% { color: blue; }
+    100% { color: red; }
+}
+@keyframes color-change {
+    0% { color: red; }
+    50% { color: blue; }
+    100% { color: red; }
+}
