@@ -18,7 +18,6 @@
   "homepage": "https://github.com/n-9891-b/Code-Test#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "fast-html-parser": "^1.0.1",
     "jquery": "^3.1.0"
   }
 }
